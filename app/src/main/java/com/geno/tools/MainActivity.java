@@ -28,6 +28,12 @@ public class MainActivity extends Activity
 		unicoder.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
 		unicoder.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {startActivity(new Intent(MainActivity.this, Unicoder.class));}});
 		l.addView(unicoder);
+
+		Button led = new Button(this);
+		led.setText("LED");
+		led.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+		led.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {startActivity(new Intent(MainActivity.this, LED.class));}});
+		l.addView(led);
 	}
 }
 
