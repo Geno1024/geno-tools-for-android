@@ -12,7 +12,6 @@ import android.widget.ToggleButton;
 public class Unicoder extends Activity
 {
 	public boolean isU2C = true;
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -20,7 +19,6 @@ public class Unicoder extends Activity
 		LinearLayout l = new LinearLayout(this);
 		l.setOrientation(LinearLayout.VERTICAL);
 		setContentView(l);
-
 		final EditText unicode = new EditText(this), chara = new EditText(this);
 		unicode.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
 		chara.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
@@ -29,43 +27,23 @@ public class Unicoder extends Activity
 		unicode.addTextChangedListener(new TextWatcher()
 		{
 			@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
 			@Override public void onTextChanged(CharSequence s, int start, int before, int count)
 			{
 				if (isU2C)
-				{
-					String uni = unicode.getText().toString();
-					try
-					{
-						char[] toWrite = Character.toChars(Integer.parseInt(uni.isEmpty() ? "0" : uni, 16));
-						chara.setText(new String(toWrite));
-					}
-					catch (Exception e)
-					{
-						chara.setText("Illegal input: " + e.getMessage());
-					}
-				}
+					try {chara.setText(new String(Character.toChars(Integer.parseInt(unicode.getText().toString().isEmpty() ? "0" : unicode.getText().toString(), 16))));}
+					catch (Exception e) {chara.setText("Illegal input: " + e.getMessage());}
 			}
-
 			@Override public void afterTextChanged(Editable s) {}
 		});
 		chara.addTextChangedListener(new TextWatcher()
 		{
 			@Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
 			@Override public void onTextChanged(CharSequence s, int start, int before, int count)
 			{
 				if (!isU2C)
-					try
-					{
-						unicode.setText(Integer.toHexString(Character.codePointAt(chara.getText().toString(), 0)));
-					}
-					catch (Exception e)
-					{
-						unicode.setText(e.getMessage() == null ? "" : "Illegal input: " + e.getMessage());
-					}
+					try {unicode.setText(Integer.toHexString(Character.codePointAt(chara.getText().toString(), 0)));}
+					catch (Exception e) {unicode.setText(e.getMessage() == null ? "" : "Illegal input: " + e.getMessage());}
 			}
-
 			@Override public void afterTextChanged(Editable s) {}
 		});
 		ToggleButton s = new ToggleButton(this);
@@ -73,14 +51,7 @@ public class Unicoder extends Activity
 		s.setTextOn("Unicode 2 Char");
 		s.setTextOff("Char 2 Unicode");
 		s.setChecked(isU2C);
-		s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-		{
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-			{
-				isU2C = isChecked;
-			}
-		});
+		s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {@Override public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {isU2C = isChecked;}});
 		l.addView(s);
 	}
 }
