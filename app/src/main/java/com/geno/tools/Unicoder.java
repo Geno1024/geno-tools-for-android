@@ -12,6 +12,7 @@ import android.widget.ToggleButton;
 public class Unicoder extends Activity
 {
 	public boolean isU2C = true;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -41,7 +42,7 @@ public class Unicoder extends Activity
 					}
 					catch (Exception e)
 					{
-						chara.setText("Illegal input.");
+						chara.setText("Illegal input: " + e.getMessage());
 					}
 				}
 			}
@@ -55,10 +56,14 @@ public class Unicoder extends Activity
 			@Override public void onTextChanged(CharSequence s, int start, int before, int count)
 			{
 				if (!isU2C)
-				{
-					String cha = chara.getText().toString();
-					unicode.setText(Character.codePointAt(cha, 0));
-				}
+					try
+					{
+						unicode.setText(Integer.toHexString(Character.codePointAt(chara.getText().toString(), 0)));
+					}
+					catch (Exception e)
+					{
+						unicode.setText(e.getMessage() == null ? "" : "Illegal input: " + e.getMessage());
+					}
 			}
 
 			@Override public void afterTextChanged(Editable s) {}
