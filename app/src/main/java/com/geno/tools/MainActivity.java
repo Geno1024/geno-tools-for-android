@@ -22,6 +22,12 @@ public class MainActivity extends Activity
 		adb_wifi.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
 		adb_wifi.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {startActivity(new Intent(MainActivity.this, ADB_Wifi.class));}});
 		l.addView(adb_wifi);
+
+		Button unicoder = new Button(this);
+		unicoder.setText("Unicoder");
+		unicoder.setWidth(LinearLayout.LayoutParams.MATCH_PARENT);
+		unicoder.setOnClickListener(new View.OnClickListener() {@Override public void onClick(View v) {startActivity(new Intent(MainActivity.this, Unicoder.class));}});
+		l.addView(unicoder);
 	}
 }
 
